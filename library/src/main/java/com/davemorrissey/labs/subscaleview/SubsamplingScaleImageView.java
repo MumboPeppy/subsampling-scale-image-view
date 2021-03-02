@@ -110,10 +110,11 @@ public class SubsamplingScaleImageView extends View {
     public static final int SCALE_TYPE_FIT_HEIGHT = 4;
     public static final int SCALE_TYPE_ORIGINAL_SIZE = 5;
     public static final int SCALE_TYPE_SMART_FIT = 6;
+    public static final int SCALE_TYPE_FIT_SCREEN_NO_UPSCALE = 7;
     /**
      * Scale the image so that both dimensions of the image will be equal to or less than the maxScale and equal to or larger than minScale. The image is then centered in the view.
      */
-    public static final int SCALE_TYPE_CUSTOM = 7;
+    public static final int SCALE_TYPE_CUSTOM = 8;
     /**
      * State change originated from animation.
      */
@@ -136,7 +137,7 @@ public class SubsamplingScaleImageView extends View {
     private static final List<Integer> VALID_ZOOM_STYLES = Arrays.asList(ZOOM_FOCUS_FIXED, ZOOM_FOCUS_CENTER, ZOOM_FOCUS_CENTER_IMMEDIATE);
     private static final List<Integer> VALID_EASING_STYLES = Arrays.asList(EASE_IN_OUT_QUAD, EASE_OUT_QUAD);
     private static final List<Integer> VALID_PAN_LIMITS = Arrays.asList(PAN_LIMIT_INSIDE, PAN_LIMIT_OUTSIDE, PAN_LIMIT_CENTER);
-    private static final List<Integer> VALID_SCALE_TYPES = Arrays.asList(SCALE_TYPE_CENTER_CROP, SCALE_TYPE_CENTER_INSIDE, SCALE_TYPE_CUSTOM, SCALE_TYPE_FIT_WIDTH, SCALE_TYPE_FIT_HEIGHT, SCALE_TYPE_ORIGINAL_SIZE, SCALE_TYPE_SMART_FIT);
+    private static final List<Integer> VALID_SCALE_TYPES = Arrays.asList(SCALE_TYPE_CENTER_CROP, SCALE_TYPE_CENTER_INSIDE, SCALE_TYPE_CUSTOM, SCALE_TYPE_FIT_WIDTH, SCALE_TYPE_FIT_HEIGHT, SCALE_TYPE_ORIGINAL_SIZE, SCALE_TYPE_SMART_FIT, SCALE_TYPE_FIT_SCREEN_NO_UPSCALE);
     private static final int MESSAGE_LONG_CLICK = 1;
     // A global preference for bitmap format, available to decoder classes that respect it
     private static Bitmap.Config preferredBitmapConfig;
@@ -1855,6 +1856,8 @@ public class SubsamplingScaleImageView extends View {
                 }
             case SCALE_TYPE_CUSTOM:
                 return minScale;
+            case SCALE_TYPE_FIT_SCREEN_NO_UPSCALE:
+                return Math.min(1, (getWidth() - hPadding) / (float) sWidth, (getHeight() - vPadding) / (float) sHeight);
         }
     }
 
