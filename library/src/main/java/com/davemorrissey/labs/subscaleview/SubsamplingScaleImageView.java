@@ -1857,7 +1857,7 @@ public class SubsamplingScaleImageView extends View {
             case SCALE_TYPE_CUSTOM:
                 return minScale;
             case SCALE_TYPE_FIT_SCREEN_NO_UPSCALE:
-                return Math.min(1, (getWidth() - hPadding) / (float) sWidth, (getHeight() - vPadding) / (float) sHeight);
+                return Math.min(1, Math.min((getWidth() - hPadding) / (float) sWidth, (getHeight() - vPadding) / (float) sHeight));
         }
     }
 
